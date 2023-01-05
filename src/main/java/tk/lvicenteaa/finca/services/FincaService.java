@@ -19,9 +19,12 @@ public class FincaService {
 
     private final Logger log = LoggerFactory.getLogger(FincaService.class);
 
-    public List<Finca> listar(){
+    public ResponseEntity<List<Finca>> listar(){
         log.info("REST Request listando todas las fincas");
-        return this.fincaRepository.findAll();
+        List<Finca> fincas = this.fincaRepository.findAll();
+        if(fincas.isEmpty())
+            return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(fincas);
     }
 
     public ResponseEntity<Finca> buscar(Long id){
@@ -72,6 +75,38 @@ public class FincaService {
         log.info("REST Request for delete all fincas");
         this.fincaRepository.deleteAll();
         return ResponseEntity.noContent().build();
+    }
+
+    public ResponseEntity<List<Finca>> listarPorPropietario(String propietario){
+        log.info("REST Request listando todas las fincas por propietario");
+        List<Finca> fincas = this.fincaRepository.findByPropietario(propietario);
+        if(fincas.isEmpty())
+            return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(fincas);
+    }
+
+    public ResponseEntity<List<Finca>> listarPorVereda(String vereda){
+        log.info("REST Request listando todas las fincas por vereda");
+        List<Finca> fincas = this.fincaRepository.findByVereda(vereda);
+        if(fincas.isEmpty())
+            return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(fincas);
+    }
+
+    public ResponseEntity<List<Finca>> listarPorAsociacion(String asociacion){
+        log.info("REST Request listando todas las fincas por asociacion");
+        List<Finca> fincas = this.fincaRepository.findByAsociacion(asociacion);
+        if(fincas.isEmpty())
+            return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(fincas);
+    }
+
+    public ResponseEntity<List<Finca>> listarPorNombre(String nombre){
+        log.info("REST Request listando todas las fincas por nombre");
+        List<Finca> fincas = this.fincaRepository.findByNombre(nombre);
+        if(fincas.isEmpty())
+            return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(fincas);
     }
 
 }

@@ -16,7 +16,7 @@ public class FincaController {
     private FincaService fincaService;
 
     @GetMapping
-    public List<Finca> listarTodas(){
+    public ResponseEntity<List<Finca>> listarTodas(){
         return this.fincaService.listar();
     }
 
@@ -45,4 +45,23 @@ public class FincaController {
         return this.fincaService.borrarTodas();
     }
 
+    @GetMapping("/propietario/{propietario}")
+    public ResponseEntity<List<Finca>> listarTodasporPropietario(@PathVariable String propietario){
+        return this.fincaService.listarPorPropietario(propietario);
+    }
+
+    @GetMapping("/nombre/{nombre}")
+    public ResponseEntity<List<Finca>> listarTodasporNombre(@PathVariable String nombre){
+        return this.fincaService.listarPorNombre(nombre);
+    }
+
+    @GetMapping("/vereda/{vereda}")
+    public ResponseEntity<List<Finca>> listarTodasporVereda(@PathVariable String vereda){
+        return this.fincaService.listarPorVereda(vereda);
+    }
+
+    @GetMapping("/asociacion/{asociacion}")
+    public ResponseEntity<List<Finca>> listarTodasporAsociacion(@PathVariable String asociacion){
+        return this.fincaService.listarPorAsociacion(asociacion);
+    }
 }
